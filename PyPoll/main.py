@@ -19,12 +19,12 @@ with open(csvpath) as csvfile :
     #loop through each row
     for rows in csvreader :
               
-
         #Tracking list of candidates 
         candidate = rows[2]
         if candidate not in listofcandidates :
             listofcandidates.append(candidate)
 
+        # tracking individual vote counts for each candidate
         if candidate in candidate_votes :
             candidate_votes[candidate] += 1
         else :
