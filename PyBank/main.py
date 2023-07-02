@@ -2,12 +2,11 @@
 import os
 import csv
 
-# Establishing File Path
+# Establishing File Paths
 csvpath = os.path.join('Resources', 'budget_data.csv')
-
+export_file = os.path.join('analysis', 'financial_analysis.txt')
 #Open the CSV file
 with open(csvpath) as csvfile : 
-
     csvreader = csv.reader(csvfile)
 
     # Skip the header
@@ -47,24 +46,35 @@ with open(csvpath) as csvfile :
                 greatest_decrease = change
                 greatest_decrease_month = row[0]
 
-            
-        
+        #Tracking value from the previous row
         previous_value = current_value
 
-    # Loop through each row and count the number o
-
+    
+# Calculate average change
 average_change = total_change / (row_count - 1)
 
-# Printing totals
-print( "Number of Months: ", row_count)
+# Saving results into a variable
+result = f'''
+Financial analysis
 
-print("Total: ", net_total)
+Number of Months: {row_count}
 
-print("Average change: ", average_change)
+Total: {net_total}
 
-print('Greatest Increase in Profits: ', greatest_increase_month, greatest_increase)
+Average Change: {average_change}
 
-print('Greatest decrease in Profits: ', greatest_decrease_month, greatest_decrease)
+Greatest Increase in Profits: {greatest_increase_month} {greatest_increase}
+
+Greatest Decrease in Profits: {greatest_decrease_month} {greatest_decrease}'''
+
+# Printing Results
+print(result)
+
+# Export Results to a text file
+with open(export_file, 'w') as file :
+    file.write(result)
+
+
 
 
 
